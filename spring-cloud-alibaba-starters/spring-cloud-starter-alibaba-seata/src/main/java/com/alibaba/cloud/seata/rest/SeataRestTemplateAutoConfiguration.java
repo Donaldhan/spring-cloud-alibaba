@@ -35,6 +35,10 @@ import org.springframework.web.client.RestTemplate;
 @Configuration(proxyBeanMethods = false)
 public class SeataRestTemplateAutoConfiguration {
 
+	/**
+	 * Rest 拦截器
+	 * @return
+	 */
 	@Bean
 	public SeataRestTemplateInterceptor seataRestTemplateInterceptor() {
 		return new SeataRestTemplateInterceptor();

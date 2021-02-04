@@ -28,6 +28,7 @@ import org.springframework.http.client.support.HttpRequestWrapper;
 import org.springframework.util.StringUtils;
 
 /**
+ * Seata HTTP 请求拦截器
  * @author xiaojing
  */
 public class SeataRestTemplateInterceptor implements ClientHttpRequestInterceptor {
@@ -40,6 +41,7 @@ public class SeataRestTemplateInterceptor implements ClientHttpRequestIntercepto
 		String xid = RootContext.getXID();
 
 		if (!StringUtils.isEmpty(xid)) {
+			//添加全局事务id到头部
 			requestWrapper.getHeaders().add(RootContext.KEY_XID, xid);
 		}
 		return clientHttpRequestExecution.execute(requestWrapper, bytes);

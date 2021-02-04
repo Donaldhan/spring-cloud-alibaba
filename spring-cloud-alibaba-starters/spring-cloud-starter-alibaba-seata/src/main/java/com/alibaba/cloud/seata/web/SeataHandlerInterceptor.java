@@ -28,7 +28,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
  * @author xiaojing
- *
+ * preHandle从头部绑定xid到Root上下文，afterCompletion从Root上下文移除事务id绑定关系
  * Seata HandlerInterceptor, Convert Seata information into
  * @see io.seata.core.context.RootContext from http request's header in
  * {@link org.springframework.web.servlet.HandlerInterceptor#preHandle(HttpServletRequest , HttpServletResponse , Object )},
@@ -50,6 +50,7 @@ public class SeataHandlerInterceptor implements HandlerInterceptor {
 		}
 
 		if (StringUtils.isBlank(xid) && rpcXid != null) {
+			//绑定全局事务id
 			RootContext.bind(rpcXid);
 			if (log.isDebugEnabled()) {
 				log.debug("bind {} to RootContext", rpcXid);
@@ -68,7 +69,7 @@ public class SeataHandlerInterceptor implements HandlerInterceptor {
 			if (StringUtils.isEmpty(rpcXid)) {
 				return;
 			}
-
+            //取消绑定全局事务id
 			String unbindXid = RootContext.unbind();
 			if (log.isDebugEnabled()) {
 				log.debug("unbind {} from RootContext", unbindXid);
