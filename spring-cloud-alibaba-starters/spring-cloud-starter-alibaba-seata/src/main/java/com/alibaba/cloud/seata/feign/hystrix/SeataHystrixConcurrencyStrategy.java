@@ -41,6 +41,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 /**
+ * Hystrix
+ *
  * @author xiaojing
  */
 public class SeataHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
